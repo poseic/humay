@@ -3,91 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy Birthday Diva! ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Humay - The Diva ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
 :root {
-  --pink:#ff6bb5; --yellow:#ffe135; --cyan:#00d4ff;
-  --purple:#c84bff; --bg:#000008;
+  --gold: #d4af37; --gold-glow: rgba(212, 175, 55, 0.4);
+  --purple: #240046; --deep-bg: #050505;
+  --white: #ffffff;
 }
 *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
 body{
-  background:var(--bg); color:#fff; font-family:'Nunito',sans-serif;
-  min-height:100vh; display:flex; align-items:center; justify-content:center;
-  overflow:hidden; touch-action: manipulation;
+  background: var(--deep-bg); color: var(--white); font-family: 'Poppins', sans-serif;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; touch-action: manipulation;
 }
 
-/* ── COSMIC BG ── */
-canvas#starCanvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+/* ── COSMIC BACKGROUND ── */
+#starCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .nebula {
-  position:fixed; width:500px; height:500px; border-radius:50%;
-  filter:blur(100px); opacity:0.15; pointer-events:none; z-index:0;
-  background: radial-gradient(circle, var(--purple), transparent);
-  animation: drift 15s infinite alternate;
+  position: fixed; width: 150vw; height: 150vh; border-radius: 50%;
+  background: radial-gradient(circle, #3c096c 0%, transparent 70%);
+  filter: blur(100px); opacity: 0.12; z-index: 0; animation: floatNebula 20s infinite alternate;
 }
-@keyframes drift { from{transform:translate(-10%, -10%);} to{transform:translate(10%, 10%);} }
+@keyframes floatNebula { from {transform: translate(-10%, -10%);} to {transform: translate(10%, 10%);} }
 
 /* ── DIVA CARD ── */
-.card{
-  position:relative; z-index:10; background:rgba(10, 10, 25, 0.7);
-  backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px);
-  border-radius:35px; padding:40px 25px; text-align:center;
-  width:90%; max-width:400px; border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-  animation: fadeIn 1.2s ease-out;
+.card {
+  position: relative; z-index: 10;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  border-radius: 40px; padding: 50px 30px; text-align: center;
+  width: 95%; max-width: 500px; /* Kart böyüdü */
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(60, 9, 108, 0.3);
+  animation: cardEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@keyframes fadeIn { from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
+@keyframes cardEntrance { 
+  from { opacity: 0; transform: scale(0.8) translateY(50px); filter: blur(10px); } 
+  to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } 
+}
 
-/* Animated Border */
-.card::after {
-  content:''; position:absolute; inset:-2px; z-index:-1;
-  background: linear-gradient(var(--angle, 0deg), var(--pink), var(--cyan), var(--purple), var(--pink));
-  border-radius:37px; animation: rotate 4s linear infinite;
+/* Səliqəli Qızılı Parıltı (Neon deyil) */
+.card::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 41px;
+  background: linear-gradient(135deg, transparent, var(--gold), transparent);
+  z-index: -1; opacity: 0.4;
 }
-@property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-@keyframes rotate { to { --angle: 360deg; } }
+
+/* ── TEXT STYLES ── */
+.crown { font-size: 50px; margin-bottom: 10px; display: block; animation: crownPulse 2s infinite; }
+@keyframes crownPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--gold)); } 50% { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--gold)); } }
 
 h1 {
-  font-family:'Pacifico', cursive; font-size: 50px; margin-bottom: 5px;
-  background: linear-gradient(to right, #fff, var(--pink), var(--purple));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 10px rgba(255,107,181,0.5));
+  font-family: 'Playfair Display', serif; font-size: 65px; font-weight: 900;
+  margin-bottom: 5px; color: var(--white);
+  letter-spacing: -2px; line-height: 1;
+  text-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 
-.sub-title { color: var(--cyan); font-weight: 800; font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; }
-
-.message-box {
-  background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px;
-  margin-bottom: 20px; text-align: left; border-left: 3px solid var(--pink);
-  font-size: 16px; line-height: 1.6; min-height: 80px;
+.diva-title {
+  font-size: 18px; font-weight: 800; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 6px; margin-bottom: 30px;
+  display: block; animation: trackingIn 1s ease both;
 }
+@keyframes trackingIn { from { letter-spacing: -10px; opacity: 0; } to { letter-spacing: 6px; opacity: 1; } }
 
-/* ── BUTTONS ── */
+/* ── DYNAMIC TYPEWRITER ── */
+.message-wrap {
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 30px; padding: 0 10px;
+}
+#typed {
+  font-size: 18px; font-weight: 500; line-height: 1.6; color: rgba(255,255,255,0.9);
+  text-align: center; font-style: italic;
+}
+.cursor {
+  display: inline-block; width: 2px; background: var(--gold);
+  margin-left: 3px; animation: blink 0.8s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── COMPLIMENT SYSTEM ── */
+.comp-box {
+  margin-bottom: 30px; perspective: 1000px;
+}
+#compText {
+  font-size: 15px; font-weight: 700; color: var(--gold);
+  margin-bottom: 15px; transition: all 0.5s ease;
+  min-height: 22px; transform-origin: center;
+}
+.btn-comp {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+  padding: 12px 25px; border-radius: 100px; font-size: 12px; font-weight: 800;
+  text-transform: uppercase; cursor: pointer; transition: 0.3s;
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+.btn-comp:active { transform: scale(0.9); background: var(--gold); color: var(--purple); }
+
+/* ── MAIN BUTTON ── */
 .btn-main {
-  width: 100%; padding: 16px; background: linear-gradient(135deg, var(--pink), var(--purple));
-  border: none; border-radius: 50px; color: white; font-weight: 900;
-  font-size: 18px; cursor: pointer; margin-top: 10px;
-  box-shadow: 0 10px 20px rgba(200, 75, 255, 0.3);
+  width: 100%; padding: 20px; border: none; border-radius: 100px;
+  background: var(--white); color: #000; font-weight: 900;
+  font-size: 16px; text-transform: uppercase; letter-spacing: 2px;
+  cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
-.btn-compliment {
-  background: transparent; border: 1px solid var(--yellow); color: var(--yellow);
-  padding: 10px 20px; border-radius: 50px; font-size: 13px; font-weight: 800;
-  margin-bottom: 15px; cursor: pointer; transition: 0.3s;
-}
-.btn-compliment:active { background: rgba(255, 225, 53, 0.1); }
+.btn-main:active { transform: scale(0.95); }
 
-.compliment-display { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; min-height: 20px; font-style: italic; }
-
-/* Meteor */
+/* ── METEORS ── */
 .meteor {
   position: fixed; background: linear-gradient(90deg, #fff, transparent);
   height: 2px; pointer-events: none; z-index: 1;
-  animation: meteor 1.5s linear forwards;
+  animation: meteorMove 2s linear forwards;
 }
-@keyframes meteor {
-  0% { transform: translateX(-100px) translateY(0) rotate(25deg); opacity: 1; }
-  100% { transform: translateX(120vw) translateY(400px) rotate(25deg); opacity: 0; }
+@keyframes meteorMove { 
+  0% { transform: translateX(-100px) translateY(0) rotate(20deg); opacity: 1; }
+  100% { transform: translateX(120vw) translateY(500px) rotate(20deg); opacity: 0; }
 }
 </style>
 </head>
@@ -97,97 +129,131 @@ h1 {
 <canvas id="starCanvas"></canvas>
 
 <div class="card">
-    <div style="font-size: 45px;">👑</div>
+    <span class="crown">👑</span>
     <h1>Humay</h1>
-    <p class="sub-title">AD GÜNÜN MÜBARƏK, DIVA!</p>
+    <span class="diva-title">Ad Günün Mübarək Diva</span>
     
-    <div class="message-box">
-        <span id="typed"></span>
+    <div class="message-wrap">
+        <p><span id="typed"></span><span class="cursor">|</span></p>
     </div>
 
-    <div class="compliment-area">
-        <p class="compliment-display" id="compText">Bura kliklə və günün parlasın... ✨</p>
-        <button class="btn-compliment" id="compBtn">Günün Komplimenti 💖</button>
+    <div class="comp-box">
+        <p id="compText">Sən bir ikonasan...</p>
+        <button class="btn-comp" id="compBtn">Yeni Kompliment ✨</button>
     </div>
 
-    <button class="btn-main" id="magicBtn">Sürprizi Başlat! 🎆</button>
+    <button class="btn-main" id="magicBtn">Sürprizi Başlat 🎆</button>
 </div>
 
 <script>
-// Typewriter
-const msg = "Yeni yaşın sənə bol şans, uğur və sənin kimi parlaq bir gələcək gətirsin! Bu il bütün səhnələr sənindir. Yaxşı ki varsan! 💎✨";
-let idx = 0;
-function type() {
-    if(idx < msg.length) {
-        document.getElementById('typed').innerHTML += msg.charAt(idx);
-        idx++; setTimeout(type, 45);
-    }
-}
-window.onload = type;
+// --- GÜCLÜ TYPEWRITER (Yaz/Gözlə/Sil/Yenisi) ---
+const messages = [
+    "Bu gün sənin günündür, parıldamağı unutma! ✨",
+    "Dünya sənin səhnəndir, biz isə heyranların... 🎭",
+    "Yeni yaşında bütün arzuların Diva tək möhtəşəm olsun! 💎",
+    "Sən sadəcə doğulmadın, kainata bir parlaqlıq gəldi! ⭐",
+    "Zəriflik və güc... Sənin adın Humaydır! 👑"
+];
 
-// Compliment Sistemi
+let msgIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const typedEl = document.getElementById('typed');
+
+function typeLoop() {
+    const currentMsg = messages[msgIdx];
+    
+    if (isDeleting) {
+        typedEl.textContent = currentMsg.substring(0, charIdx - 1);
+        charIdx--;
+    } else {
+        typedEl.textContent = currentMsg.substring(0, charIdx + 1);
+        charIdx++;
+    }
+
+    let typeSpeed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && charIdx === currentMsg.length) {
+        typeSpeed = 3000; // Yazı bitəndən sonra 3 saniyə gözlə
+        isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        msgIdx = (msgIdx + 1) % messages.length;
+        typeSpeed = 500;
+    }
+
+    setTimeout(typeLoop, typeSpeed);
+}
+window.onload = typeLoop;
+
+// --- KOMPLİMENT (Animasiyalı) ---
 const compliments = [
-    "Sən bu kainatın ən parlaq ulduzusan! ⭐",
-    "Bu gün bütün diqqətlər sənin üzərində olmalıdır, Diva! 👑",
-    "Gülüşün ətrafı işıqlandırır, heç vaxt sönmə! ✨",
-    "Səndən bir dənədir, dəyərini bil! 💎",
-    "Yeni yaşında bütün arzuların reallığa çevrilsin! 🌈",
-    "Diva olmaq sənin ruhunda var! 💅"
+    "Gözəlliyin kainatı qısqandırır! 🌌",
+    "Bu ilin ən böyük trendi sənin gülüşündür! 💅",
+    "Hər addımın bir asillik nümayişidir... 💎",
+    "Sən bir ulduz yox, bütöv bir qalaktikasan! 💫",
+    "Diva olmaq sənə çox yaraşır! 👑"
 ];
 
 document.getElementById('compBtn').addEventListener('click', () => {
-    const text = document.getElementById('compText');
-    text.style.opacity = 0;
+    const el = document.getElementById('compText');
+    el.style.transform = "scale(0.8) rotateX(90deg)";
+    el.style.opacity = "0";
+    
     setTimeout(() => {
-        text.innerText = compliments[Math.floor(Math.random() * compliments.length)];
-        text.style.opacity = 1;
+        el.textContent = compliments[Math.floor(Math.random() * compliments.length)];
+        el.style.transform = "scale(1) rotateX(0deg)";
+        el.style.opacity = "1";
+    }, 500);
+});
+
+// --- SURPRIZE ---
+document.getElementById('magicBtn').addEventListener('click', (e) => {
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#d4af37', '#ffffff', '#240046'] });
+    
+    // Əlavə yanlardan konfetlər
+    setTimeout(() => {
+        confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#d4af37'] });
+        confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffffff'] });
     }, 200);
 });
 
-// Celebration
-document.getElementById('magicBtn').addEventListener('click', () => {
-    const duration = 4 * 1000;
-    const end = Date.now() + duration;
-
-    (function frame() {
-        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0, y: 0.6 }, colors: ['#ff6bb5', '#c84bff'] });
-        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1, y: 0.6 }, colors: ['#00d4ff', '#ffe135'] });
-        if (Date.now() < end) requestAnimationFrame(frame);
-    }());
-});
-
-// Star Background
+// --- STARFIELD ---
 const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-let stars = Array.from({length: 100}, () => ({
+let stars = Array.from({length: 150}, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    size: Math.random() * 1.5,
-    speed: Math.random() * 0.2 + 0.05
+    r: Math.random() * 1.5,
+    o: Math.random(),
+    s: Math.random() * 0.02
 }));
 
-function animate() {
+function animateStars() {
     ctx.clearRect(0,0,canvas.width, canvas.height);
-    ctx.fillStyle = "white";
     stars.forEach(s => {
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill();
-        s.y -= s.speed; if(s.y < 0) s.y = canvas.height;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`;
+        ctx.fill();
+        s.o += s.s;
+        if(s.o > 1 || s.o < 0) s.s = -s.s;
     });
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animateStars);
 }
-animate();
+animateStars();
 
-// Meteor Generator
+// --- METEORS ---
 setInterval(() => {
     const m = document.createElement('div');
     m.className = 'meteor';
-    m.style.top = Math.random() * 40 + '%';
+    m.style.top = Math.random() * 50 + '%';
     m.style.left = '-100px';
-    m.style.width = Math.random() * 100 + 100 + 'px';
+    m.style.width = Math.random() * 150 + 100 + 'px';
     document.body.appendChild(m);
-    setTimeout(() => m.remove(), 1500);
-}, 3500);
+    setTimeout(() => m.remove(), 2000);
+}, 4000);
 </script>
 </body>
 </html>
