@@ -3,111 +3,389 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Humay - The Diva ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<title>Humay - The Eternal Diva ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 :root {
-  --gold: #d4af37; --gold-glow: rgba(212, 175, 55, 0.4);
-  --purple: #240046; --deep-bg: #050505;
+  --gold: #d4af37;
+  --gold-gradient: linear-gradient(135deg, #fcf6ba 0%, #d4af37 40%, #fbf5b7 60%, #aa771c 100%);
+  --deep-purple: #1a0033;
+  --bg-dark: #020205;
   --white: #ffffff;
 }
-*{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
-body{
-  background: var(--deep-bg); color: var(--white); font-family: 'Poppins', sans-serif;
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  overflow: hidden; touch-action: manipulation;
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: manipulation;
 }
 
 /* ── COSMIC BACKGROUND ── */
-#starCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#starCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
 .nebula {
   position: fixed; width: 150vw; height: 150vh; border-radius: 50%;
-  background: radial-gradient(circle, #3c096c 0%, transparent 70%);
-  filter: blur(100px); opacity: 0.12; z-index: 0; animation: floatNebula 20s infinite alternate;
+  background: radial-gradient(circle, #310062 0%, transparent 70%);
+  filter: blur(120px); opacity: 0.15; z-index: 0;
+  animation: nebulaPulse 15s infinite alternate ease-in-out;
 }
-@keyframes floatNebula { from {transform: translate(-10%, -10%);} to {transform: translate(10%, 10%);} }
+@keyframes nebulaPulse { from { transform: translate(-15%, -15%) scale(1); } to { transform: translate(10%, 10%) scale(1.2); } }
 
-/* ── DIVA CARD ── */
+/* ── LUXURY DIVA CARD ── */
 .card {
-  position: relative; z-index: 10;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-  border-radius: 40px; padding: 50px 30px; text-align: center;
-  width: 95%; max-width: 500px; /* Kart böyüdü */
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(60, 9, 108, 0.3);
-  animation: cardEntrance 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes cardEntrance { 
-  from { opacity: 0; transform: scale(0.8) translateY(50px); filter: blur(10px); } 
-  to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } 
+  position: relative;
+  z-index: 10;
+  width: 92%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 40px;
+  padding: 40px 25px;
+  text-align: center;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9), 0 0 50px rgba(212, 175, 55, 0.05);
+  animation: cardEntry 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-/* Səliqəli Qızılı Parıltı (Neon deyil) */
+@keyframes cardEntry {
+  from { opacity: 0; transform: translateY(100px) scale(0.9); filter: blur(20px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Golden Aura */
 .card::before {
-  content: ''; position: absolute; inset: -1px; border-radius: 41px;
-  background: linear-gradient(135deg, transparent, var(--gold), transparent);
-  z-index: -1; opacity: 0.4;
+  content: ''; position: absolute; inset: -2px; z-index: -1;
+  background: linear-gradient(135deg, transparent, var(--gold), transparent, var(--gold), transparent);
+  background-size: 400% 400%;
+  border-radius: 42px;
+  opacity: 0.3;
+  animation: auraFlow 6s linear infinite;
 }
+@keyframes auraFlow { 0%{background-position: 0% 50%;} 50%{background-position: 100% 50%;} 100%{background-position: 0% 50%;} }
 
-/* ── TEXT STYLES ── */
-.crown { font-size: 50px; margin-bottom: 10px; display: block; animation: crownPulse 2s infinite; }
-@keyframes crownPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--gold)); } 50% { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--gold)); } }
+/* ── TYPOGRAPHY ── */
+.crown-icon {
+  font-size: 55px;
+  display: block;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 15px var(--gold));
+  animation: crownFloat 3s infinite ease-in-out;
+}
+@keyframes crownFloat { 0%, 100%{transform: translateY(0) rotate(0deg);} 50%{transform: translateY(-10px) rotate(5deg);} }
 
 h1 {
-  font-family: 'Playfair Display', serif; font-size: 65px; font-weight: 900;
-  margin-bottom: 5px; color: var(--white);
-  letter-spacing: -2px; line-height: 1;
-  text-shadow: 0 0 20px rgba(255,255,255,0.3);
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+  line-height: 1;
 }
 
-.diva-title {
-  font-size: 18px; font-weight: 800; color: var(--gold);
-  text-transform: uppercase; letter-spacing: 6px; margin-bottom: 30px;
-  display: block; animation: trackingIn 1s ease both;
+.greeting-text {
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--white);
+  opacity: 0.9;
+  margin-bottom: 35px;
+  display: block;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
-@keyframes trackingIn { from { letter-spacing: -10px; opacity: 0; } to { letter-spacing: 6px; opacity: 1; } }
 
-/* ── DYNAMIC TYPEWRITER ── */
-.message-wrap {
-  min-height: 100px; display: flex; align-items: center; justify-content: center;
-  margin-bottom: 30px; padding: 0 10px;
+/* ── DYNAMIC MESSAGES ── */
+.message-container {
+  min-height: 90px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#typed {
-  font-size: 18px; font-weight: 500; line-height: 1.6; color: rgba(255,255,255,0.9);
-  text-align: center; font-style: italic;
+
+#typed-text {
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
 }
+
 .cursor {
-  display: inline-block; width: 2px; background: var(--gold);
-  margin-left: 3px; animation: blink 0.8s infinite;
+  display: inline-block;
+  width: 2px;
+  height: 20px;
+  background: var(--gold);
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+  vertical-align: middle;
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ── COMPLIMENT SYSTEM ── */
-.comp-box {
-  margin-bottom: 30px; perspective: 1000px;
+/* ── INTERACTIVE COMPLIMENT ── */
+.compliment-section { margin-bottom: 35px; }
+
+#comp-display {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 15px;
+  min-height: 20px;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-#compText {
-  font-size: 15px; font-weight: 700; color: var(--gold);
-  margin-bottom: 15px; transition: all 0.5s ease;
-  min-height: 22px; transform-origin: center;
+
+.btn-luxury {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
 }
-.btn-comp {
-  background: transparent; border: 1px solid var(--gold); color: var(--gold);
-  padding: 12px 25px; border-radius: 100px; font-size: 12px; font-weight: 800;
-  text-transform: uppercase; cursor: pointer; transition: 0.3s;
-  box-shadow: 0 0 10px var(--gold-glow);
-}
-.btn-comp:active { transform: scale(0.9); background: var(--gold); color: var(--purple); }
+.btn-luxury:active { transform: scale(0.9); background: var(--gold); color: var(--bg-dark); }
 
 /* ── MAIN BUTTON ── */
 .btn-main {
-  width: 100%; padding: 20px; border: none; border-radius: 100px;
-  background: var(--white); color: #000; font-weight: 900;
-  font-size: 16px; text-transform: uppercase; letter-spacing: 2px;
-  cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 100px;
+  background: var(--white);
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-main:active { transform: scale(0.95); box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+
+/* ── ANIMATIONS FOR JS ── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px) rotate(-1deg); }
+  40% { transform: translateX(8px) rotate(1deg); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+@keyframes fallEmoji {
+  0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+.meteor {
+  position: fixed; background: linear-gradient(90deg, #fff, transparent);
+  height: 2px; pointer-events: none; z-index: 2;
+  animation: meteorFlow 2s linear forwards;
+}
+@keyframes meteorFlow { from{left: -10vw;} to{left: 110vw; transform: translateY(400px) rotate(20deg);} }
+</style>
+</head>
+<body>
+
+<div class="nebula"></div>
+<canvas id="starCanvas"></canvas>
+
+<div class="card" id="divaCard">
+    <span class="crown-icon">👑</span>
+    <h1>Humay</h1>
+    <span class="greeting-text">Ad Günün Mübarək Diva</span>
+
+    <div class="message-container">
+        <p><span id="typed-text"></span><span class="cursor"></span></p>
+    </div>
+
+    <div class="compliment-section">
+        <p id="comp-display">Sən bir əfsanəsən...</p>
+        <button class="btn-luxury" id="compBtn">Diva Komplimenti ✨</button>
+    </div>
+
+    <button class="btn-main" id="magicBtn">Sürprizi Başlat 🎆</button>
+</div>
+
+<script>
+// --- 1. MÜRƏKKƏB TYPEWRITER (Yaz/Gözlə/Sil/Döngü) ---
+const messages = [
+    "Bu gün bütün kainat sənin üçün parıldayır! ✨",
+    "Sən sadəcə bir ulduz yox, bütöv bir qalaktikasan... 🌌",
+    "Diva olmaq bir seçim deyil, sənin ruhundur! 👑",
+    "Yeni yaşında hər addımın bir asillik nümayişi olsun. 💎",
+    "Yaxşı ki varsan Humay, dünya səninlə daha gözəldir! ❤️"
+];
+
+let msgIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const typedEl = document.getElementById('typed-text');
+
+function type() {
+    const currentMsg = messages[msgIdx];
+    
+    if (isDeleting) {
+        typedEl.textContent = currentMsg.substring(0, charIdx - 1);
+        charIdx--;
+    } else {
+        typedEl.textContent = currentMsg.substring(0, charIdx + 1);
+        charIdx++;
+    }
+
+    let speed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && charIdx === currentMsg.length) {
+        speed = 3500; // Mesaj bitəndə 3.5 saniyə gözlə
+        isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        msgIdx = (msgIdx + 1) % messages.length;
+        speed = 500;
+    }
+
+    setTimeout(type, speed);
+}
+window.onload = type;
+
+// --- 2. KOMPLİMENT SİSTEMİ (3D Effektlə) ---
+const compliments = [
+    "Gözəlliyin qanunları yenidən yazır! 💅",
+    "Hər kəs ulduz ola bilər, amma sən Divasan! 👑",
+    "Sənin enerjin ətrafındakı hər şeyi işıqlandırır. ✨",
+    "Stilin və zərifliyin qüsursuzdur! 💎",
+    "Sən bir ikonasan! 🌟"
+];
+
+document.getElementById('compBtn').addEventListener('click', () => {
+    const display = document.getElementById('comp-display');
+    display.style.transform = "rotateX(90deg) scale(0.8)";
+    display.style.opacity = "0";
+    
+    setTimeout(() => {
+        display.textContent = compliments[Math.floor(Math.random() * compliments.length)];
+        display.style.transform = "rotateX(0deg) scale(1)";
+        display.style.opacity = "1";
+    }, 400);
+});
+
+// --- 3. ULTRA DİVA SURPRIZE (Konfeti + Balonlar + Shake) ---
+document.getElementById('magicBtn').addEventListener('click', () => {
+    // A) Möhtəşəm Konfeti Partlayışı
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const colors = ['#d4af37', '#ffffff', '#7b2cbf'];
+
+    (function frame() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return;
+
+        const particleCount = 4 * (timeLeft / duration);
+        confetti({
+            particleCount,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.6 },
+            colors: colors
+        });
+        confetti({
+            particleCount,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.6 },
+            colors: colors
+        });
+        requestAnimationFrame(frame);
+    }());
+
+    // B) Kartın Titrəməsi
+    const card = document.getElementById('divaCard');
+    card.style.animation = 'none';
+    setTimeout(() => card.style.animation = 'shake 0.6s cubic-bezier(.36,.07,.19,.97) both', 10);
+
+    // C) Yuxarıdan Düşən Elementlər
+    for(let i=0; i<30; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.innerText = ['🎈', '💎', '👑', '💖', '✨'][Math.floor(Math.random()*5)];
+            emoji.style.cssText = `
+                position: fixed; top: -50px; left: ${Math.random()*100}vw;
+                font-size: ${Math.random()*25+20}px; z-index: 100;
+                pointer-events: none; animation: fallEmoji ${Math.random()*2+3}s linear forwards;
+            `;
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }, i * 150);
+    }
+});
+
+// --- 4. COSMIC STARFIELD ANIMATION ---
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let w, h, stars = [];
+
+function initStars() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    stars = Array.from({length: 150}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5,
+        o: Math.random(),
+        s: Math.random() * 0.015 + 0.005
+    }));
+}
+
+function drawStars() {
+    ctx.clearRect(0, 0, w, h);
+    stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`;
+        ctx.fill();
+        s.o += s.s;
+        if(s.o > 1 || s.o < 0) s.s = -s.s;
+    });
+    requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
+initStars();
+drawStars();
+
+// --- 5. METEORS (Hər 5 saniyədən bir) ---
+setInterval(() => {
+    const m = document.createElement('div');
+    m.className = 'meteor';
+    m.style.top = Math.random() * 60 + '%';
+    document.body.appendChild(m);
+    setTimeout(() => m.remove(), 2000);
+}, 5000);
+
+</script>
+</body>
+</html>
 }
 .btn-main:active { transform: scale(0.95); }
 
