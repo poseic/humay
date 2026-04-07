@@ -11,7 +11,6 @@
 :root {
   --gold: #d4af37;
   --gold-gradient: linear-gradient(135deg, #fcf6ba 0%, #d4af37 40%, #fbf5b7 60%, #aa771c 100%);
-  --deep-purple: #1a0033;
   --bg-dark: #020205;
   --white: #ffffff;
 }
@@ -63,7 +62,6 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
-/* Golden Aura */
 .card::before {
   content: ''; position: absolute; inset: -2px; z-index: -1;
   background: linear-gradient(135deg, transparent, var(--gold), transparent, var(--gold), transparent);
@@ -106,103 +104,51 @@ h1 {
   opacity: 0.9;
   margin-bottom: 35px;
   display: block;
-  text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
+
+/* ── MESSAGE PARTLAYIŞI (YENİ) ── */
+.explosion-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.explosion-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--gold);
+    text-align: center;
+    padding: 20px;
+    transform: scale(0.5);
+    filter: blur(10px);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: 0 0 30px var(--gold);
+}
+
+.explosion-overlay.active { opacity: 1; pointer-events: auto; }
+.explosion-overlay.active .explosion-text { transform: scale(1.2); filter: blur(0); }
 
 /* ── DYNAMIC MESSAGES ── */
-.message-container {
-  min-height: 90px;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#typed-text {
-  font-size: 17px;
-  line-height: 1.7;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-  font-style: italic;
-}
-
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 20px;
-  background: var(--gold);
-  margin-left: 4px;
-  animation: blink 0.8s infinite;
-  vertical-align: middle;
-}
+.message-container { min-height: 90px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
+#typed-text { font-size: 17px; line-height: 1.7; font-weight: 500; color: rgba(255, 255, 255, 0.85); font-style: italic; }
+.cursor { display: inline-block; width: 2px; height: 20px; background: var(--gold); margin-left: 4px; animation: blink 0.8s infinite; vertical-align: middle; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ── INTERACTIVE COMPLIMENT ── */
+/* ── BUTTONS ── */
 .compliment-section { margin-bottom: 35px; }
+#comp-display { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 15px; min-height: 20px; transition: 0.5s; }
+.btn-luxury { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; border-radius: 50px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+.btn-main { width: 100%; padding: 20px; border: none; border-radius: 100px; background: var(--white); color: #000; font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; }
 
-#comp-display {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 15px;
-  min-height: 20px;
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.btn-luxury {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-}
-.btn-luxury:active { transform: scale(0.9); background: var(--gold); color: var(--bg-dark); }
-
-/* ── MAIN BUTTON ── */
-.btn-main {
-  width: 100%;
-  padding: 20px;
-  border: none;
-  border-radius: 100px;
-  background: var(--white);
-  color: #000;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 900;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.btn-main:active { transform: scale(0.95); box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
-
-/* ── ANIMATIONS FOR JS ── */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-8px) rotate(-1deg); }
-  40% { transform: translateX(8px) rotate(1deg); }
-  60% { transform: translateX(-5px); }
-  80% { transform: translateX(5px); }
-}
-
-@keyframes fallEmoji {
-  0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-.meteor {
-  position: fixed; background: linear-gradient(90deg, #fff, transparent);
-  height: 2px; pointer-events: none; z-index: 2;
-  animation: meteorFlow 2s linear forwards;
-}
+.meteor { position: fixed; background: linear-gradient(90deg, #fff, transparent); height: 2px; pointer-events: none; z-index: 2; animation: meteorFlow 2s linear forwards; }
 @keyframes meteorFlow { from{left: -10vw;} to{left: 110vw; transform: translateY(400px) rotate(20deg);} }
 </style>
 </head>
@@ -210,6 +156,10 @@ h1 {
 
 <div class="nebula"></div>
 <canvas id="starCanvas"></canvas>
+
+<div class="explosion-overlay" id="overlay">
+    <div class="explosion-text" id="burstMessage">SƏN BU KAİNATIN ƏN PARLAQ ULDUZUSAN! 💎✨</div>
+</div>
 
 <div class="card" id="divaCard">
     <span class="crown-icon">👑</span>
@@ -229,7 +179,7 @@ h1 {
 </div>
 
 <script>
-// --- 1. MÜRƏKKƏB TYPEWRITER (Yaz/Gözlə/Sil/Döngü) ---
+// --- TYPEWRITER ---
 const messages = [
     "Bu gün bütün kainat sənin üçün parıldayır! ✨",
     "Sən sadəcə bir ulduz yox, bütöv bir qalaktikasan... 🌌",
@@ -237,152 +187,54 @@ const messages = [
     "Yeni yaşında hər addımın bir asillik nümayişi olsun. 💎",
     "Yaxşı ki varsan Humay, dünya səninlə daha gözəldir! ❤️"
 ];
-
-let msgIdx = 0;
-let charIdx = 0;
-let isDeleting = false;
+let msgIdx = 0, charIdx = 0, isDeleting = false;
 const typedEl = document.getElementById('typed-text');
 
 function type() {
     const currentMsg = messages[msgIdx];
-    
-    if (isDeleting) {
-        typedEl.textContent = currentMsg.substring(0, charIdx - 1);
-        charIdx--;
-    } else {
-        typedEl.textContent = currentMsg.substring(0, charIdx + 1);
-        charIdx++;
-    }
-
+    typedEl.textContent = isDeleting ? currentMsg.substring(0, charIdx - 1) : currentMsg.substring(0, charIdx + 1);
+    charIdx = isDeleting ? charIdx - 1 : charIdx + 1;
     let speed = isDeleting ? 40 : 80;
-
-    if (!isDeleting && charIdx === currentMsg.length) {
-        speed = 3500; // Mesaj bitəndə 3.5 saniyə gözlə
-        isDeleting = true;
-    } else if (isDeleting && charIdx === 0) {
-        isDeleting = false;
-        msgIdx = (msgIdx + 1) % messages.length;
-        speed = 500;
-    }
-
+    if (!isDeleting && charIdx === currentMsg.length) { speed = 3500; isDeleting = true; }
+    else if (isDeleting && charIdx === 0) { isDeleting = false; msgIdx = (msgIdx + 1) % messages.length; speed = 500; }
     setTimeout(type, speed);
 }
 window.onload = type;
 
-// --- 2. KOMPLİMENT SİSTEMİ (3D Effektlə) ---
-const compliments = [
-    "Gözəlliyin qanunları yenidən yazır! 💅",
-    "Hər kəs ulduz ola bilər, amma sən Divasan! 👑",
-    "Sənin enerjin ətrafındakı hər şeyi işıqlandırır. ✨",
-    "Stilin və zərifliyin qüsursuzdur! 💎",
-    "Sən bir ikonasan! 🌟"
-];
-
+// --- KOMPLİMENT ---
+const compliments = ["Gözəlliyin qanunları yenidən yazır! 💅", "Hər kəs ulduz ola bilər, amma sən Divasan! 👑", "Sənin enerjin ətrafındakı hər şeyi işıqlandırır. ✨", "Stilin və zərifliyin qüsursuzdur! 💎", "Sən bir ikonasan! 🌟"];
 document.getElementById('compBtn').addEventListener('click', () => {
     const display = document.getElementById('comp-display');
-    display.style.transform = "rotateX(90deg) scale(0.8)";
     display.style.opacity = "0";
-    
-    setTimeout(() => {
-        display.textContent = compliments[Math.floor(Math.random() * compliments.length)];
-        display.style.transform = "rotateX(0deg) scale(1)";
-        display.style.opacity = "1";
-    }, 400);
+    setTimeout(() => { display.textContent = compliments[Math.floor(Math.random() * compliments.length)]; display.style.opacity = "1"; }, 400);
 });
 
-// --- 3. ULTRA DİVA SURPRIZE (Konfeti + Balonlar + Shake) ---
+// --- SADƏCƏ CÜMLƏ PARTLAYIŞI (İstədiyin funksiya) ---
 document.getElementById('magicBtn').addEventListener('click', () => {
-    // A) Möhtəşəm Konfeti Partlayışı
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const colors = ['#d4af37', '#ffffff', '#7b2cbf'];
-
-    (function frame() {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return;
-
-        const particleCount = 4 * (timeLeft / duration);
-        confetti({
-            particleCount,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0, y: 0.6 },
-            colors: colors
-        });
-        confetti({
-            particleCount,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1, y: 0.6 },
-            colors: colors
-        });
-        requestAnimationFrame(frame);
-    }());
-
-    // B) Kartın Titrəməsi
-    const card = document.getElementById('divaCard');
-    card.style.animation = 'none';
-    setTimeout(() => card.style.animation = 'shake 0.6s cubic-bezier(.36,.07,.19,.97) both', 10);
-
-    // C) Yuxarıdan Düşən Elementlər
-    for(let i=0; i<30; i++) {
-        setTimeout(() => {
-            const emoji = document.createElement('div');
-            emoji.innerText = ['🎈', '💎', '👑', '💖', '✨'][Math.floor(Math.random()*5)];
-            emoji.style.cssText = `
-                position: fixed; top: -50px; left: ${Math.random()*100}vw;
-                font-size: ${Math.random()*25+20}px; z-index: 100;
-                pointer-events: none; animation: fallEmoji ${Math.random()*2+3}s linear forwards;
-            `;
-            document.body.appendChild(emoji);
-            setTimeout(() => emoji.remove(), 5000);
-        }, i * 150);
-    }
+    const overlay = document.getElementById('overlay');
+    overlay.classList.add('active');
+    
+    // 3 saniyə sonra partlayış ekranını bağla
+    setTimeout(() => {
+        overlay.classList.remove('active');
+    }, 3500);
 });
 
-// --- 4. COSMIC STARFIELD ANIMATION ---
+// --- ARXA FON ---
 const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
-let w, h, stars = [];
-
-function initStars() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-    stars = Array.from({length: 150}, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.5,
-        o: Math.random(),
-        s: Math.random() * 0.015 + 0.005
-    }));
-}
-
+let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
+let stars = Array.from({length: 150}, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5, o: Math.random(), s: Math.random() * 0.015 + 0.005 }));
 function drawStars() {
     ctx.clearRect(0, 0, w, h);
     stars.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`;
-        ctx.fill();
-        s.o += s.s;
-        if(s.o > 1 || s.o < 0) s.s = -s.s;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`; ctx.fill();
+        s.o += s.s; if(s.o > 1 || s.o < 0) s.s = -s.s;
     });
     requestAnimationFrame(drawStars);
 }
-
-window.addEventListener('resize', initStars);
-initStars();
 drawStars();
-
-// --- 5. METEORS (Hər 5 saniyədən bir) ---
-setInterval(() => {
-    const m = document.createElement('div');
-    m.className = 'meteor';
-    m.style.top = Math.random() * 60 + '%';
-    document.body.appendChild(m);
-    setTimeout(() => m.remove(), 2000);
-}, 5000);
-
+setInterval(() => { const m = document.createElement('div'); m.className = 'meteor'; m.style.top = Math.random() * 60 + '%'; document.body.appendChild(m); setTimeout(() => m.remove(), 2000); }, 5000);
 </script>
 </body>
 </html>
