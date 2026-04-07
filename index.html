@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Humay - The Eternal Diva ✨</title>
+<title>Humay - Slay Queen ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 :root {
   --gold: #d4af37;
-  --gold-gradient: linear-gradient(135deg, #fcf6ba 0%, #d4af37 40%, #fbf5b7 60%, #aa771c 100%);
+  --gold-glow: rgba(212, 175, 55, 0.6);
   --bg-dark: #020205;
   --white: #ffffff;
 }
@@ -26,215 +26,178 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  touch-action: manipulation;
 }
 
-/* ── COSMIC BACKGROUND ── */
+/* ── COSMIC BG ── */
 #starCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
-
 .nebula {
   position: fixed; width: 150vw; height: 150vh; border-radius: 50%;
   background: radial-gradient(circle, #310062 0%, transparent 70%);
   filter: blur(120px); opacity: 0.15; z-index: 0;
-  animation: nebulaPulse 15s infinite alternate ease-in-out;
 }
-@keyframes nebulaPulse { from { transform: translate(-15%, -15%) scale(1); } to { transform: translate(10%, 10%) scale(1.2); } }
 
-/* ── LUXURY DIVA CARD ── */
+/* ── LUXURY CARD ── */
 .card {
-  position: relative;
-  z-index: 10;
-  width: 92%;
-  max-width: 450px;
+  position: relative; z-index: 10;
+  width: 92%; max-width: 450px;
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border-radius: 40px;
-  padding: 40px 25px;
-  text-align: center;
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  box-shadow: 0 40px 100px rgba(0,0,0,0.9), 0 0 50px rgba(212, 175, 55, 0.05);
-  animation: cardEntry 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
-@keyframes cardEntry {
-  from { opacity: 0; transform: translateY(100px) scale(0.9); filter: blur(20px); }
-  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  border-radius: 40px; padding: 45px 25px; text-align: center;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+  transition: transform 0.3s ease;
 }
 
 .card::before {
   content: ''; position: absolute; inset: -2px; z-index: -1;
   background: linear-gradient(135deg, transparent, var(--gold), transparent, var(--gold), transparent);
-  background-size: 400% 400%;
-  border-radius: 42px;
-  opacity: 0.3;
+  background-size: 400% 400%; border-radius: 42px; opacity: 0.3;
   animation: auraFlow 6s linear infinite;
 }
-@keyframes auraFlow { 0%{background-position: 0% 50%;} 50%{background-position: 100% 50%;} 100%{background-position: 0% 50%;} }
+@keyframes auraFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-/* ── TYPOGRAPHY ── */
-.crown-icon {
-  font-size: 55px;
-  display: block;
-  margin-bottom: 15px;
-  filter: drop-shadow(0 0 15px var(--gold));
-  animation: crownFloat 3s infinite ease-in-out;
-}
-@keyframes crownFloat { 0%, 100%{transform: translateY(0) rotate(0deg);} 50%{transform: translateY(-10px) rotate(5deg);} }
+h1 { font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 900; background: linear-gradient(135deg, #fcf6ba 0%, #d4af37 100%); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 5px; }
+.diva-badge { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); display: block; margin-bottom: 30px; }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 60px;
-  font-weight: 900;
-  letter-spacing: -2px;
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 10px;
-  line-height: 1;
+/* ── THE LEGENDARY EXPLOSION OVERLAY ── */
+.legendary-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle, rgba(20,0,40,0.95) 0%, #000 100%);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
-.greeting-text {
-  font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  color: var(--white);
-  opacity: 0.9;
-  margin-bottom: 35px;
-  display: block;
-}
+.legendary-overlay.active { opacity: 1; pointer-events: auto; }
 
-/* ── MESSAGE PARTLAYIŞI (YENİ) ── */
-.explosion-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.85);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
-
-.explosion-text {
+.slay-text {
     font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    font-weight: 900;
-    color: var(--gold);
-    text-align: center;
-    padding: 20px;
-    transform: scale(0.5);
-    filter: blur(10px);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-shadow: 0 0 30px var(--gold);
+    font-size: 38px; font-weight: 900; color: var(--gold);
+    text-align: center; line-height: 1.3; padding: 30px;
+    transform: scale(0.2) rotate(-10deg); filter: blur(20px);
+    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    text-shadow: 0 0 30px var(--gold), 0 0 60px rgba(212,175,55,0.4);
 }
 
-.explosion-overlay.active { opacity: 1; pointer-events: auto; }
-.explosion-overlay.active .explosion-text { transform: scale(1.2); filter: blur(0); }
+.legendary-overlay.active .slay-text {
+    transform: scale(1.1) rotate(0deg); filter: blur(0);
+}
 
-/* ── DYNAMIC MESSAGES ── */
-.message-container { min-height: 90px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
-#typed-text { font-size: 17px; line-height: 1.7; font-weight: 500; color: rgba(255, 255, 255, 0.85); font-style: italic; }
-.cursor { display: inline-block; width: 2px; height: 20px; background: var(--gold); margin-left: 4px; animation: blink 0.8s infinite; vertical-align: middle; }
-@keyframes blink { 50% { opacity: 0; } }
+/* Flash Effect */
+.flash {
+    position: fixed; inset: 0; background: #fff; z-index: 10000;
+    opacity: 0; pointer-events: none;
+}
 
-/* ── BUTTONS ── */
-.compliment-section { margin-bottom: 35px; }
-#comp-display { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 15px; min-height: 20px; transition: 0.5s; }
-.btn-luxury { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; border-radius: 50px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-.btn-main { width: 100%; padding: 20px; border: none; border-radius: 100px; background: var(--white); color: #000; font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; }
+/* ── UI ELEMENTS ── */
+#typed-text { font-size: 16px; font-style: italic; color: rgba(255,255,255,0.8); min-height: 80px; display: block; margin-bottom: 30px;}
+.btn-luxury { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px 25px; border-radius: 50px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 20px; width: 100%;}
+.btn-main { width: 100%; padding: 22px; border: none; border-radius: 100px; background: var(--white); color: #000; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 15px 40px rgba(212,175,55,0.2); }
 
-.meteor { position: fixed; background: linear-gradient(90deg, #fff, transparent); height: 2px; pointer-events: none; z-index: 2; animation: meteorFlow 2s linear forwards; }
-@keyframes meteorFlow { from{left: -10vw;} to{left: 110vw; transform: translateY(400px) rotate(20deg);} }
+/* Shake Animation */
+@keyframes shakeBody {
+    0% { transform: translate(0,0) }
+    10% { transform: translate(-10px,-10px) }
+    30% { transform: translate(10px,10px) }
+    50% { transform: translate(-10px,10px) }
+    70% { transform: translate(10px,-10px) }
+    100% { transform: translate(0,0) }
+}
+
+.shake-active { animation: shakeBody 0.4s ease-in-out infinite; }
 </style>
 </head>
 <body>
 
+<div class="flash" id="flashScreen"></div>
 <div class="nebula"></div>
 <canvas id="starCanvas"></canvas>
 
-<div class="explosion-overlay" id="overlay">
-    <div class="explosion-text" id="burstMessage">SƏN BU KAİNATIN ƏN PARLAQ ULDUZUSAN! 💎✨</div>
+<div class="legendary-overlay" id="overlay">
+    <div class="slay-text">
+        LAMBO OLMADI ÜZRLÜ SAY.<br>
+        <span style="font-size: 60px; color: #fff;">SLAY QUEEN</span> 💅✨
+    </div>
 </div>
 
-<div class="card" id="divaCard">
-    <span class="crown-icon">👑</span>
+<div class="card" id="mainCard">
+    <span style="font-size: 50px;">👑</span>
     <h1>Humay</h1>
-    <span class="greeting-text">Ad Günün Mübarək Diva</span>
+    <span class="diva-badge">The Eternal Diva</span>
 
     <div class="message-container">
-        <p><span id="typed-text"></span><span class="cursor"></span></p>
+        <span id="typed-text"></span>
     </div>
 
-    <div class="compliment-section">
-        <p id="comp-display">Sən bir əfsanəsən...</p>
-        <button class="btn-luxury" id="compBtn">Diva Komplimenti ✨</button>
-    </div>
-
+    <button class="btn-luxury" id="compBtn">Günün Komplimenti ✨</button>
     <button class="btn-main" id="magicBtn">Sürprizi Başlat 🎆</button>
 </div>
 
 <script>
 // --- TYPEWRITER ---
-const messages = [
-    "Bu gün bütün kainat sənin üçün parıldayır! ✨",
-    "Sən sadəcə bir ulduz yox, bütöv bir qalaktikasan... 🌌",
-    "Diva olmaq bir seçim deyil, sənin ruhundur! 👑",
-    "Yeni yaşında hər addımın bir asillik nümayişi olsun. 💎",
-    "Yaxşı ki varsan Humay, dünya səninlə daha gözəldir! ❤️"
-];
-let msgIdx = 0, charIdx = 0, isDeleting = false;
-const typedEl = document.getElementById('typed-text');
-
+const messages = ["Dünya sənə heyran, sən isə ulduzlara... ✨", "Diva ruhunla hər günü fəth et! 👑", "Yeni yaşında hər addımın parıltılı olsun. 💎"];
+let mIdx = 0, cIdx = 0, isDel = false;
 function type() {
-    const currentMsg = messages[msgIdx];
-    typedEl.textContent = isDeleting ? currentMsg.substring(0, charIdx - 1) : currentMsg.substring(0, charIdx + 1);
-    charIdx = isDeleting ? charIdx - 1 : charIdx + 1;
-    let speed = isDeleting ? 40 : 80;
-    if (!isDeleting && charIdx === currentMsg.length) { speed = 3500; isDeleting = true; }
-    else if (isDeleting && charIdx === 0) { isDeleting = false; msgIdx = (msgIdx + 1) % messages.length; speed = 500; }
-    setTimeout(type, speed);
+    const curr = messages[mIdx];
+    document.getElementById('typed-text').textContent = isDel ? curr.substring(0, cIdx-1) : curr.substring(0, cIdx+1);
+    cIdx = isDel ? cIdx-1 : cIdx+1;
+    if(!isDel && cIdx === curr.length) { setTimeout(()=>isDel=true, 3000); }
+    else if(isDel && cIdx === 0) { isDel=false; mIdx = (mIdx+1)%messages.length; }
+    setTimeout(type, isDel ? 50 : 100);
 }
-window.onload = type;
+type();
 
-// --- KOMPLİMENT ---
-const compliments = ["Gözəlliyin qanunları yenidən yazır! 💅", "Hər kəs ulduz ola bilər, amma sən Divasan! 👑", "Sənin enerjin ətrafındakı hər şeyi işıqlandırır. ✨", "Stilin və zərifliyin qüsursuzdur! 💎", "Sən bir ikonasan! 🌟"];
-document.getElementById('compBtn').addEventListener('click', () => {
-    const display = document.getElementById('comp-display');
-    display.style.opacity = "0";
-    setTimeout(() => { display.textContent = compliments[Math.floor(Math.random() * compliments.length)]; display.style.opacity = "1"; }, 400);
-});
-
-// --- SADƏCƏ CÜMLƏ PARTLAYIŞI (İstədiyin funksiya) ---
+// --- THE LEGENDARY EXPLOSION LOGIC ---
 document.getElementById('magicBtn').addEventListener('click', () => {
+    const flash = document.getElementById('flashScreen');
     const overlay = document.getElementById('overlay');
-    overlay.classList.add('active');
+    const body = document.body;
+
+    // 1. Flash Effect
+    flash.style.opacity = '1';
     
-    // 3 saniyə sonra partlayış ekranını bağla
+    // 2. Start Shake
+    body.classList.add('shake-active');
+
     setTimeout(() => {
-        overlay.classList.remove('active');
-    }, 3500);
+        flash.style.opacity = '0';
+        overlay.classList.add('active');
+        
+        // 3. Fire Confetti (Gold only)
+        confetti({
+            particleCount: 200,
+            spread: 90,
+            origin: { y: 0.6 },
+            colors: ['#d4af37', '#ffffff', '#fcf6ba']
+        });
+    }, 150);
+
+    // Stop shake after a bit
+    setTimeout(() => { body.classList.remove('shake-active'); }, 600);
+
+    // Close after 5 seconds
+    setTimeout(() => { overlay.classList.remove('active'); }, 5000);
 });
 
-// --- ARXA FON ---
+// --- STAR BACKGROUND ---
 const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
 let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
-let stars = Array.from({length: 150}, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5, o: Math.random(), s: Math.random() * 0.015 + 0.005 }));
-function drawStars() {
-    ctx.clearRect(0, 0, w, h);
+let stars = Array.from({length: 100}, () => ({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.5, o: Math.random(), s: Math.random()*0.02 }));
+function draw() {
+    ctx.clearRect(0,0,w,h);
     stars.forEach(s => {
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`; ctx.fill();
-        s.o += s.s; if(s.o > 1 || s.o < 0) s.s = -s.s;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${s.o})`; ctx.fill();
+        s.o += s.s; if(s.o>1 || s.o<0) s.s = -s.s;
     });
-    requestAnimationFrame(drawStars);
+    requestAnimationFrame(draw);
 }
-drawStars();
-setInterval(() => { const m = document.createElement('div'); m.className = 'meteor'; m.style.top = Math.random() * 60 + '%'; document.body.appendChild(m); setTimeout(() => m.remove(), 2000); }, 5000);
+draw();
+
+// Kompliment
+document.getElementById('compBtn').addEventListener('click', () => {
+    alert("Sən bir ikonasan! 💅");
+});
 </script>
 </body>
 </html>
