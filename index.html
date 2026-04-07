@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Humay - Slay Queen ✨</title>
+<title>Humay - The Eternal Diva ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 :root {
   --gold: #d4af37;
-  --gold-glow: rgba(212, 175, 55, 0.6);
+  --gold-gradient: linear-gradient(135deg, #fcf6ba 0%, #d4af37 40%, #fbf5b7 60%, #aa771c 100%);
   --bg-dark: #020205;
   --white: #ffffff;
 }
@@ -26,26 +26,28 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
-/* ── COSMIC BG ── */
+/* ── COSMIC BACKGROUND ── */
 #starCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .nebula {
   position: fixed; width: 150vw; height: 150vh; border-radius: 50%;
   background: radial-gradient(circle, #310062 0%, transparent 70%);
   filter: blur(120px); opacity: 0.15; z-index: 0;
+  animation: nebulaPulse 15s infinite alternate ease-in-out;
 }
+@keyframes nebulaPulse { from { transform: translate(-10%, -10%) scale(1); } to { transform: translate(10%, 10%) scale(1.1); } }
 
-/* ── LUXURY CARD ── */
+/* ── LUXURY DIVA CARD ── */
 .card {
   position: relative; z-index: 10;
   width: 92%; max-width: 450px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-  border-radius: 40px; padding: 45px 25px; text-align: center;
+  border-radius: 40px; padding: 40px 25px; text-align: center;
   border: 1px solid rgba(212, 175, 55, 0.2);
   box-shadow: 0 40px 100px rgba(0,0,0,0.9);
-  transition: transform 0.3s ease;
 }
 
 .card::before {
@@ -56,155 +58,212 @@ body {
 }
 @keyframes auraFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-h1 { font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 900; background: linear-gradient(135deg, #fcf6ba 0%, #d4af37 100%); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 5px; }
-.diva-badge { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); display: block; margin-bottom: 30px; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 55px; font-weight: 900;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 8px; line-height: 1;
+}
 
-/* ── THE LEGENDARY EXPLOSION OVERLAY ── */
-.legendary-overlay {
+.greeting-text {
+  font-size: 18px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 4px; color: var(--gold); display: block; margin-bottom: 25px;
+}
+
+.comp-box {
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 20px; padding: 15px; margin-bottom: 25px;
+  min-height: 70px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.4s ease;
+}
+#comp-text {
+  font-size: 15px; font-weight: 600; color: var(--white);
+  font-style: italic; text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.message-container { min-height: 70px; margin-bottom: 25px; }
+#typed-text { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.4; }
+
+.btn-group { display: flex; flex-direction: column; gap: 12px; }
+
+.btn-luxury {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+  padding: 14px; border-radius: 50px; font-size: 12px; font-weight: 900;
+  text-transform: uppercase; cursor: pointer; transition: 0.3s;
+}
+.btn-luxury:active { background: var(--gold); color: #000; transform: scale(0.98); }
+
+.btn-main {
+  background: var(--white); color: #000; padding: 18px; border: none;
+  border-radius: 50px; font-size: 15px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+.btn-main:active { transform: scale(0.95); }
+
+.slay-overlay {
     position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(circle, rgba(20,0,40,0.98) 0%, #000 100%);
     display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle, rgba(20,0,40,0.95) 0%, #000 100%);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.4s ease;
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+}
+.slay-overlay.active { opacity: 1; pointer-events: auto; }
+
+.slay-content {
+    text-align: center; padding: 30px;
+    transform: scale(0.5); filter: blur(20px);
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.slay-overlay.active .slay-content { transform: scale(1.1); filter: blur(0); }
+
+.lambo-text {
+    font-family: 'Playfair Display', serif; font-size: 28px;
+    color: var(--white); margin-bottom: 12px; display: block;
+}
+.slay-queen {
+    font-family: 'Playfair Display', serif; font-size: 70px;
+    font-weight: 900; background: var(--gold-gradient);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
 }
 
-.legendary-overlay.active { opacity: 1; pointer-events: auto; }
-
-.slay-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px; font-weight: 900; color: var(--gold);
-    text-align: center; line-height: 1.3; padding: 30px;
-    transform: scale(0.2) rotate(-10deg); filter: blur(20px);
-    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-    text-shadow: 0 0 30px var(--gold), 0 0 60px rgba(212,175,55,0.4);
-}
-
-.legendary-overlay.active .slay-text {
-    transform: scale(1.1) rotate(0deg); filter: blur(0);
-}
-
-/* Flash Effect */
-.flash {
-    position: fixed; inset: 0; background: #fff; z-index: 10000;
-    opacity: 0; pointer-events: none;
-}
-
-/* ── UI ELEMENTS ── */
-#typed-text { font-size: 16px; font-style: italic; color: rgba(255,255,255,0.8); min-height: 80px; display: block; margin-bottom: 30px;}
-.btn-luxury { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px 25px; border-radius: 50px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 20px; width: 100%;}
-.btn-main { width: 100%; padding: 22px; border: none; border-radius: 100px; background: var(--white); color: #000; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 15px 40px rgba(212,175,55,0.2); }
-
-/* Shake Animation */
-@keyframes shakeBody {
-    0% { transform: translate(0,0) }
-    10% { transform: translate(-10px,-10px) }
-    30% { transform: translate(10px,10px) }
-    50% { transform: translate(-10px,10px) }
-    70% { transform: translate(10px,-10px) }
-    100% { transform: translate(0,0) }
-}
-
-.shake-active { animation: shakeBody 0.4s ease-in-out infinite; }
+.flash { position: fixed; inset: 0; background: #fff; z-index: 10000; opacity: 0; pointer-events: none; }
+@keyframes shake { 0%,100%{transform:translate(0,0)} 25%{transform:translate(-8px,-8px)} 75%{transform:translate(8px,8px)} }
+.shake-active { animation: shake 0.1s infinite; }
 </style>
 </head>
 <body>
 
-<div class="flash" id="flashScreen"></div>
+<div class="flash" id="flash"></div>
 <div class="nebula"></div>
 <canvas id="starCanvas"></canvas>
 
-<div class="legendary-overlay" id="overlay">
-    <div class="slay-text">
-        Lambo olmadı üzrlü say.<br>
-        <span style="font-size: 60px; color: #fff;">Slay Queen</span> 💅✨
+<div class="slay-overlay" id="slayOverlay">
+    <div class="slay-content">
+        <span class="lambo-text">LAMBO OLMADI ÜZRLÜ SAY 😂</span>
+        <span class="slay-queen">SLAY QUEEN 💅✨</span>
     </div>
 </div>
 
 <div class="card" id="mainCard">
-    <span style="font-size: 50px;">👑</span>
+    <span style="font-size: 45px; display: block; margin-bottom: 10px;">👑</span>
     <h1>Humay</h1>
-    <span class="diva-badge">The Eternal Diva</span>
+    <span class="greeting-text">AD GÜNÜN MÜBARƏK, THE ETERNAL DIVA! 🎉</span>
 
     <div class="message-container">
-        <span id="typed-text"></span>
+        <p id="typed-text"></p>
     </div>
 
-    <button class="btn-luxury" id="compBtn">Günün Komplimenti ✨</button>
-    <button class="btn-main" id="magicBtn">Buraya Click 🎆</button>
+    <div class="comp-box">
+        <p id="comp-text">Sən hər zaman parıldayırsan... ✨</p>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-luxury" id="compBtn">Diva Komplimenti Al 💅</button>
+        <button class="btn-main" id="magicBtn">Buraya Click  🎆</button>
+    </div>
 </div>
 
 <script>
-// --- TYPEWRITER ---
-const messages = ["Gözəlliyin inflyasiyadan daha sürətli artır, dayandıra bilmirik diva! 📈✨",
-"Bu gün stilinlə rəsmən atmosferi yandırdın(slay), itfaiyə çağırmışıq. 🔥💅",
-"Sən bir ikonasan, digərləri sadəcə arxa fon rəqqaslarıdır. 💃👑",
-"Kainatda milyardlarla ulduz var, amma heç biri sənin qədər 'main character' deyil. ⭐",
-"Zərifliyin elə bir səviyyədədir ki, sanki hər addımın qırmızı xalçadır. 👠✨",
-"Sənin enerjin 24 karat qızıldan daha parlaq və daha dəyərlidir diva! 💎",
-"Dizaynerlər hələ sənin qədər qüsursuz bir şey yaratmağı bacarmayıblar. 🏛️✨",
-"Baxışlarınla rəsmən sənət əsəri kimi görünürsən, muzeyə qoyulmalısan queen. 🎨",
-"Dünya bir səhnədirsə, sən hər zaman ən çox alqışlanan aktrisasan. 🎭👏"];
+// --- 1. TYPEWRITER (yeniləndi) ---
+const messages = [
+    "Bu gün bütün kainat sənin üçün parıldayır! ✨",
+    "Diva olmaq bir seçim deyil, sənin ruhundur! 👑",
+    "Sən sadəcə bir yaş deyil, riyaziyyat oxuyacaq bir il qazanırsan! 💎",
+    "Sənin queenliyin ulduzları kölgədə qoyur! ⭐💅",
+    "Hər addımın bir divalıq hekayəsidir... 👠✨",
+    "Divalığın dastanlarda belə tapılmayan bir sehrdir! ✨",
+    "Gülüşün ən qaranlıq gecəni belə işıqlandırır! 🌙💖",
+    "Hər kəs görür, amma sən hər kəsin baxa bilməyəcəyi qədər parlaqsan! 🔥💎",
+    "Sənin varlığın bu günü bayrama çevirir! 🎉✨",
+    "Stilinlə, ruhunla və asilliyinlə sən təkrarolunmazsan! 🧬👑",
+    "Sən gələndə buludlar belə sənin üçün çəkilir... ☁️☀️",
+    "Bu il sənin ilindir, hər anını Slay Queen kimi yaşa! 💅🔥"
+];
 let mIdx = 0, cIdx = 0, isDel = false;
 function type() {
     const curr = messages[mIdx];
     document.getElementById('typed-text').textContent = isDel ? curr.substring(0, cIdx-1) : curr.substring(0, cIdx+1);
     cIdx = isDel ? cIdx-1 : cIdx+1;
-    if(!isDel && cIdx === curr.length) { setTimeout(()=>isDel=true, 3000); }
+    if(!isDel && cIdx === curr.length) { setTimeout(()=>isDel=true, 2500); }
     else if(isDel && cIdx === 0) { isDel=false; mIdx = (mIdx+1)%messages.length; }
-    setTimeout(type, isDel ? 50 : 100);
+    setTimeout(type, isDel ? 40 : 80);
 }
 type();
 
-// --- THE LEGENDARY EXPLOSION LOGIC ---
+// --- 2. KOMPLİMENTLƏR (yeniləndi) ---
+const compliments = [
+    "Gözəlliyin inflyasiyadan daha sürətli artır! 📈💅",
+    "Sənin enerjin 24 karat qızıldan daha parlaqdır! ✨",
+    "Hər kəs gözəl ola bilər, amma sən Divasan! 💎",
+    "Sənin olduğun yerdə başqa işığa ehtiyac qalmır! 🌟",
+    "Sənin enerjin şəhərin işıqlarını söndürür.Slay queen! ⚡",
+    "Güzgülər belə səni göstərdiyi üçün özü ilə fəxr edir! 🪞",
+    "Ad günün mübarək! Sən hər il daha da parlaq olursan 💖",
+    "Humay, sənin kimi diva dostum olduğu üçün özümü çox şanslı hiss edirəm!",
+    "Bu yaşda belə slay olmaq ancaq sənə yaraşır, kraliça! 👸",
+    "Gözəlliyin qarşısında qravitasiya belə itir! 🪐",
+    "Sən lüğətdə 'Mükəmməllik' sözünün izahısan! ✨",
+    "Diva modu: Həmişə aktiv, həmişə qüsursuz! 👑",
+    "Sənin gülüşün ən bahalı brilyantdan daha parlaqdır! 💎"
+];
+
+document.getElementById('compBtn').addEventListener('click', () => {
+    const textEl = document.getElementById('comp-text');
+    textEl.style.opacity = '0';
+    textEl.style.transform = 'translateY(10px)';
+    
+    setTimeout(() => {
+        textEl.textContent = compliments[Math.floor(Math.random() * compliments.length)];
+        textEl.style.opacity = '1';
+        textEl.style.transform = 'translateY(0)';
+    }, 300);
+});
+
+// --- 3. SLAY EXPLOSION (lambo olduğu kimi qaldı) ---
 document.getElementById('magicBtn').addEventListener('click', () => {
-    const flash = document.getElementById('flashScreen');
-    const overlay = document.getElementById('overlay');
+    const flash = document.getElementById('flash');
+    const overlay = document.getElementById('slayOverlay');
     const body = document.body;
 
-    // 1. Flash Effect
     flash.style.opacity = '1';
-    
-    // 2. Start Shake
     body.classList.add('shake-active');
 
     setTimeout(() => {
         flash.style.opacity = '0';
         overlay.classList.add('active');
         
-        // 3. Fire Confetti (Gold only)
         confetti({
-            particleCount: 200,
-            spread: 90,
-            origin: { y: 0.6 },
-            colors: ['#d4af37', '#ffffff', '#fcf6ba']
+            particleCount: 300, spread: 120, origin: { y: 0.6 },
+            colors: ['#d4af37', '#ffffff', '#f8e38c', '#ff69b4']
         });
     }, 150);
 
-    // Stop shake after a bit
-    setTimeout(() => { body.classList.remove('shake-active'); }, 600);
-
-    // Close after 5 seconds
-    setTimeout(() => { overlay.classList.remove('active'); }, 5000);
+    setTimeout(() => { body.classList.remove('shake-active'); }, 500);
+    setTimeout(() => { overlay.classList.remove('active'); }, 6500);
 });
 
-// --- STAR BACKGROUND ---
+// --- 4. COSMIC BACKGROUND ---
 const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
 let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
-let stars = Array.from({length: 100}, () => ({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.5, o: Math.random(), s: Math.random()*0.02 }));
+let stars = Array.from({length: 130}, () => ({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.8, o: Math.random(), s: Math.random()*0.025 }));
+
 function draw() {
     ctx.clearRect(0,0,w,h);
     stars.forEach(s => {
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${s.o})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); 
+        ctx.fillStyle=`rgba(255,255,255,${s.o})`; ctx.fill();
         s.o += s.s; if(s.o>1 || s.o<0) s.s = -s.s;
     });
     requestAnimationFrame(draw);
 }
 draw();
-
-// Kompliment
-document.getElementById('compBtn').addEventListener('click', () => {
-    alert("Sən bir ikonasan! 💅");
+window.addEventListener('resize', () => { 
+    w = canvas.width = window.innerWidth; 
+    h = canvas.height = window.innerHeight; 
 });
 </script>
 </body>
